@@ -50,8 +50,9 @@ export function MobileHeader({
         type="button"
         className="mobile-header__collection"
         onClick={onOpenCollection}
+        aria-label="Коллекция выпусков"
       >
-        Коллекция
+        <span className="mobile-header__collection-label">Коллекция</span>
         <span
           className={`mobile-header__badge${collectionSetCount === 0 ? ' mobile-header__badge--warn' : ''}`}
         >

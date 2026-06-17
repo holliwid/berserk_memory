@@ -72,7 +72,7 @@ export function TrainerControls({
             <p className="trainer-controls__done">На сегодня повторений нет. Отличная работа!</p>
           ) : isSrs && revealed && ratingPreviews ? (
             <>
-              <p className="trainer-controls__hint">
+              <p className="trainer-controls__rating-hint">
                 Оцените, насколько хорошо вспомнили карту
               </p>
               <div className="trainer-controls__ratings">
@@ -93,7 +93,7 @@ export function TrainerControls({
             </>
           ) : (
             <>
-              <p className="trainer-controls__hint">
+              <p className="trainer-controls__hint desktop-only">
                 <kbd>Пробел</kbd>
                 <span>показать ответ</span>
                 {!isSrs && (
