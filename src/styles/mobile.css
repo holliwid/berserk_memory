@@ -54,22 +54,25 @@
   }
 
   .board-field__content {
-    --mobile-header-h: 40px;
-    --mobile-dock-h: 108px;
-    --mobile-card-max-h: calc(100dvh - var(--mobile-header-h) - var(--mobile-dock-h) - 8px);
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    align-items: stretch;
-    justify-content: stretch;
     width: 100%;
-    height: 100dvh;
-    min-height: 100dvh;
+    min-height: 100svh;
     padding: 0;
     padding-top: env(safe-area-inset-top, 0px);
   }
 
-  .board-field__content--revealed {
-    --mobile-dock-h: 196px;
+  .board-field__content--training {
+    --mobile-toolbar-h: calc(env(safe-area-inset-top, 0px) + 44px);
+    --mobile-dock-h: 112px;
+    --mobile-card-max-h: calc(
+      100svh - var(--mobile-toolbar-h) - var(--mobile-dock-h) - 8px
+    );
+    display: grid !important;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    height: 100svh;
+    min-height: 100svh;
+    padding: 0 !important;
   }
 
   .trainer {
@@ -78,10 +81,11 @@
     flex-direction: column;
     width: 100%;
     max-width: none;
-    margin-top: 0;
+    margin-top: 0 !important;
     min-height: 0;
     padding: 0;
     overflow: hidden;
+    align-items: stretch !important;
   }
 
   .trainer-stack {
@@ -93,20 +97,18 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 100%;
     min-height: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin-inline: auto;
     max-width: min(100%, 420px);
-    padding: 4px 10px var(--mobile-dock-h);
+    padding:
+      var(--mobile-toolbar-h)
+      10px
+      calc(var(--mobile-dock-h) + 8px);
     background: transparent;
     box-shadow: none;
-  }
-
-  .trainer-stack--revealed {
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+    filter: none;
   }
 
   .trainer-stack::before {
@@ -130,33 +132,103 @@
     display: none;
   }
 
-  .card-slot .card-with-masks {
-    display: block;
-    width: 100%;
-  }
-
+  .card-slot .card-with-masks,
   .card-slot .card-frame {
     display: block;
     width: 100%;
   }
 
-  .card-slot .card-image-layer {
+  .card-slot--tappable .card-image-layer {
+    aspect-ratio: 5 / 3.4;
+    max-height: min(var(--mobile-card-max-h), calc((100vw - 24px) * 3.4 / 5));
+    height: auto;
     width: 100%;
-    max-height: var(--mobile-card-max-h);
+  }
+
+  .card-slot--tappable .card-stats-cover {
+    display: none;
+  }
+
+  .card-slot--tappable .card-image {
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .card-slot--revealed .card-image-layer {
     aspect-ratio: 5 / 7;
+    max-height: var(--mobile-card-max-h);
+    width: 100%;
     height: auto;
   }
 
-  .card-slot .card-stats-cover {
-    background: color-mix(in srgb, var(--el-common-deep) 96%, black);
-  }
-
-  .card-slot .card-image {
+  .card-slot--revealed .card-image {
     object-fit: fill;
+    object-position: center;
   }
 
   .card-slot--tappable {
     cursor: pointer;
+  }
+
+  .mobile-toolbar {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    right: 0;
+    z-index: 35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    pointer-events: none;
+  }
+
+  .mobile-toolbar__btn {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 4px 8px;
+    border: 1px solid color-mix(in srgb, var(--el-accent) 35%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--el-common-deep) 82%, transparent);
+    backdrop-filter: blur(8px);
+    color: var(--el-rare);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .mobile-toolbar__mark {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobile-toolbar__icon {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .mobile-toolbar__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--el-accent);
+    color: var(--el-ink-dark);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .mobile-toolbar__badge--warn {
+    background: color-mix(in srgb, #a85858 85%, var(--el-accent));
+    color: #fff;
   }
 
   .trainer-controls {
@@ -166,6 +238,7 @@
     bottom: 0;
     z-index: 40;
     width: 100%;
+    max-width: none;
     margin-top: 0;
     padding: 0;
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -467,13 +540,8 @@
 }
 
 @media (max-width: 979px) and (orientation: landscape) {
-  .board-field__content {
-    --mobile-header-h: 36px;
-    --mobile-dock-h: 96px;
-  }
-
-  .board-field__content--revealed {
-    --mobile-dock-h: 168px;
+  .board-field__content--training {
+    --mobile-toolbar-h: calc(env(safe-area-inset-top, 0px) + 36px);
   }
 
   .collection-drawer__sheet {

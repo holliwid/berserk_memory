@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 import { CollectionDrawer } from './components/CollectionDrawer'
 
@@ -10,6 +10,8 @@ import { CardWithMasks } from './components/CardWithMasks'
 
 import { MobileHeader } from './components/MobileHeader'
 
+import { MobileToolbar } from './components/MobileToolbar'
+
 import { ThemePicker } from './components/ThemePicker'
 
 import { TrainerControls } from './components/TrainerControls'
@@ -18,9 +20,13 @@ import { themeStyle, useElementTheme } from './hooks/useElementTheme'
 
 import { useCardPool } from './hooks/useCardPool'
 
+import { useMobileDockHeight } from './hooks/useMobileDockHeight'
+
 import type { ReviewRating } from './types/study'
 
 import './styles/app.css'
+
+import './styles/mobile.css'
 
 import './styles/masks.css'
 
@@ -85,8 +91,14 @@ function App() {
   const hasSelection = collection.setIds.length > 0
 
   const showTrainer =
+    !loading &&
+    !error &&
+    hasSelection &&
+    Boolean(currentCard || srsComplete)
 
-    !loading && !error && hasSelection && (currentCard || srsComplete)
+  const dockRef = useRef<HTMLDivElement>(null)
+
+  useMobileDockHeight(dockRef, showTrainer)
 
 
 
@@ -260,12 +272,23 @@ function App() {
             .join(' ')}
         >
 
-          <MobileHeader
-            elementId={elementId}
-            collectionSetCount={collection.setIds.length}
-            onOpenTheme={() => setThemeOpen(true)}
-            onOpenCollection={() => setCollectionOpen(true)}
-          />
+          {!showTrainer && (
+            <MobileHeader
+              elementId={elementId}
+              collectionSetCount={collection.setIds.length}
+              onOpenTheme={() => setThemeOpen(true)}
+              onOpenCollection={() => setCollectionOpen(true)}
+            />
+          )}
+
+          {showTrainer && (
+            <MobileToolbar
+              elementId={elementId}
+              collectionSetCount={collection.setIds.length}
+              onOpenTheme={() => setThemeOpen(true)}
+              onOpenCollection={() => setCollectionOpen(true)}
+            />
+          )}
 
 
 
@@ -344,78 +367,49 @@ function App() {
             )}
 
             {showTrainer && (
-
-              <div
-                className={[
-                  'trainer-stack',
-                  revealed ? 'trainer-stack--revealed' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-              >
-
-                {currentCard && (
-
-                  <div
-
-                    className={`card-slot${!revealed ? ' card-slot--tappable' : ''}`}
-
-                    onClick={handleCardTap}
-
-                    onKeyDown={(event) => {
-
-                      if (event.key === 'Enter' || event.key === ' ') {
-
-                        event.preventDefault()
-
-                        handleCardTap()
-
-                      }
-
-                    }}
-
-                    role={!revealed ? 'button' : undefined}
-
-                    tabIndex={!revealed ? 0 : undefined}
-
-                    aria-label={!revealed ? 'Показать ответ' : undefined}
-
-                  >
-
-                    <CardWithMasks card={currentCard} revealed={revealed} />
-
-                  </div>
-
-                )}
+              <>
+                <div
+                  className={[
+                    'trainer-stack',
+                    revealed ? 'trainer-stack--revealed' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {currentCard && (
+                    <div
+                      className={`card-slot${!revealed ? ' card-slot--tappable' : ''}${revealed ? ' card-slot--revealed' : ''}`}
+                      onClick={handleCardTap}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault()
+                          handleCardTap()
+                        }
+                      }}
+                      role={!revealed ? 'button' : undefined}
+                      tabIndex={!revealed ? 0 : undefined}
+                      aria-label={!revealed ? 'Показать ответ' : undefined}
+                    >
+                      <CardWithMasks card={currentCard} revealed={revealed} />
+                    </div>
+                  )}
+                </div>
 
                 <TrainerControls
-
+                  ref={dockRef}
                   studyMode={studyMode}
-
                   revealed={revealed}
-
                   seenCount={seenCount}
-
                   poolSize={poolSize}
-
                   sessionGoal={sessionGoal}
-
                   srsComplete={srsComplete}
-
                   disabled={poolSize === 0}
-
                   ratingPreviews={ratingPreviews}
-
                   onReveal={reveal}
-
                   onNext={nextCard}
-
                   onRate={rateCurrentCard}
-
                 />
-
-              </div>
-
+              </>
             )}
 
           </section>
