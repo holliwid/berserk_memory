@@ -250,22 +250,21 @@ function App() {
 
 
 
-        <div className="board-field__content">
+        <div
+          className={[
+            'board-field__content',
+            showTrainer ? 'board-field__content--training' : '',
+            revealed ? 'board-field__content--revealed' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
 
           <MobileHeader
             elementId={elementId}
-            studyMode={studyMode}
-
-            hasSelection={hasSelection}
-
             collectionSetCount={collection.setIds.length}
-
-            studyStats={studyStats}
-
             onOpenTheme={() => setThemeOpen(true)}
-
             onOpenCollection={() => setCollectionOpen(true)}
-
           />
 
 
@@ -346,7 +345,14 @@ function App() {
 
             {showTrainer && (
 
-              <div className="trainer-stack">
+              <div
+                className={[
+                  'trainer-stack',
+                  revealed ? 'trainer-stack--revealed' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
 
                 {currentCard && (
 
