@@ -186,6 +186,17 @@ body {
     padding: 24px 20px 32px;
   }
 
+  .board-field__content--training,
+  .board-field__content--revealed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 100vh;
+    padding: 24px 20px 32px;
+  }
+
   .trainer {
     display: flex;
     flex-direction: column;
@@ -193,6 +204,63 @@ body {
     gap: 0;
     width: min(100%, 460px);
     margin-top: 42px;
+    overflow: visible;
+  }
+
+  .trainer-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+    max-width: none;
+    filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.42));
+  }
+
+  .trainer-stack--revealed {
+    overflow: visible;
+  }
+
+  .card-slot {
+    width: 100%;
+    padding: 0 0 10px;
+    border-radius: var(--slot-radius) var(--slot-radius) 0 0;
+    border: 2px solid var(--el-accent);
+    border-bottom: none;
+  }
+
+  .card-slot::before,
+  .card-slot::after {
+    display: block;
+  }
+
+  .card-slot--tappable .card-image-layer,
+  .card-slot--revealed .card-image-layer {
+    aspect-ratio: 5 / 7;
+    width: 100%;
+    max-height: min(calc(100vh - 280px), 620px);
+    height: auto;
+  }
+
+  .card-slot--tappable .card-stats-cover {
+    display: block;
+  }
+
+  .card-slot--tappable .card-image,
+  .card-slot--revealed .card-image {
+    object-fit: fill;
+    object-position: center;
+  }
+
+  .trainer-controls {
+    position: static;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    background: transparent;
+    border-top: none;
+    box-shadow: none;
   }
 }
 

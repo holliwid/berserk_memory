@@ -367,33 +367,31 @@ function App() {
             )}
 
             {showTrainer && (
-              <>
-                <div
-                  className={[
-                    'trainer-stack',
-                    revealed ? 'trainer-stack--revealed' : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  {currentCard && (
-                    <div
-                      className={`card-slot${!revealed ? ' card-slot--tappable' : ''}${revealed ? ' card-slot--revealed' : ''}`}
-                      onClick={handleCardTap}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                          event.preventDefault()
-                          handleCardTap()
-                        }
-                      }}
-                      role={!revealed ? 'button' : undefined}
-                      tabIndex={!revealed ? 0 : undefined}
-                      aria-label={!revealed ? 'Показать ответ' : undefined}
-                    >
-                      <CardWithMasks card={currentCard} revealed={revealed} />
-                    </div>
-                  )}
-                </div>
+              <div
+                className={[
+                  'trainer-stack',
+                  revealed ? 'trainer-stack--revealed' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {currentCard && (
+                  <div
+                    className={`card-slot${!revealed ? ' card-slot--tappable' : ''}${revealed ? ' card-slot--revealed' : ''}`}
+                    onClick={handleCardTap}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        handleCardTap()
+                      }
+                    }}
+                    role={!revealed ? 'button' : undefined}
+                    tabIndex={!revealed ? 0 : undefined}
+                    aria-label={!revealed ? 'Показать ответ' : undefined}
+                  >
+                    <CardWithMasks card={currentCard} revealed={revealed} />
+                  </div>
+                )}
 
                 <TrainerControls
                   ref={dockRef}
@@ -409,7 +407,7 @@ function App() {
                   onNext={nextCard}
                   onRate={rateCurrentCard}
                 />
-              </>
+              </div>
             )}
 
           </section>
