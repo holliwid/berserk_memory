@@ -1,0 +1,111 @@
+.card-with-masks {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.card-frame {
+  --cover-height: 44%;
+  position: relative;
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px color-mix(in srgb, var(--el-accent) 35%, transparent);
+  transition: box-shadow 0.35s ease;
+}
+
+.card-frame--revealed {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 0 2px var(--el-accent);
+}
+
+.card-image-layer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  line-height: 0;
+  background: var(--el-common);
+  overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card-image--loaded {
+  opacity: 1;
+}
+
+.card-stats-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: calc(var(--cover-height) + 4px);
+  pointer-events: none;
+  background: var(--el-common-deep);
+  transition: opacity 0.35s ease;
+}
+
+.card-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--el-common);
+  transition: opacity 0.2s ease;
+}
+
+.card-skeleton--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-skeleton__shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    color-mix(in srgb, var(--el-rare) 8%, transparent) 45%,
+    transparent 70%
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.card-image-fallback {
+  aspect-ratio: 5 / 7;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+  background: var(--el-rare);
+  color: var(--el-ink-dark);
+}
+
+.card-image-fallback a {
+  color: color-mix(in srgb, var(--el-accent) 80%, black);
+}

@@ -1,0 +1,26 @@
+{
+  "name": "berserk-card-trainer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "fetch:cards": "node scripts/fetch-cards.mjs",
+    "fetch:images": "node scripts/fetch-images.mjs",
+    "fetch:all": "node scripts/fetch-cards.mjs && node scripts/fetch-images.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "ts-fsrs": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  }
+}
