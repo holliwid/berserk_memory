@@ -551,6 +551,11 @@
 
 /* Desktop: сброс мобильных модификаторов карты (mobile.css грузится последним) */
 @media (min-width: 980px) {
+  .trainer {
+    width: min(100%, 460px);
+    margin-inline: auto;
+  }
+
   .board-field__content--training .card-slot,
   .card-slot {
     flex: 0 0 auto;
