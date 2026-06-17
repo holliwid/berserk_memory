@@ -549,6 +549,45 @@
   }
 }
 
+/* Desktop: сброс мобильных модификаторов карты (mobile.css грузится последним) */
+@media (min-width: 980px) {
+  .board-field__content--training .card-slot,
+  .card-slot {
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .card-slot .card-with-masks,
+  .card-slot .card-frame {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .card-slot .card-image-layer,
+  .card-slot--tappable .card-image-layer,
+  .card-slot--revealed .card-image-layer {
+    aspect-ratio: 5 / 7;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+  }
+
+  .card-slot--tappable .card-stats-cover {
+    display: block;
+  }
+
+  .card-slot--tappable .card-image,
+  .card-slot--revealed .card-image,
+  .card-slot .card-image {
+    object-fit: fill;
+    object-position: center;
+  }
+}
+
 @keyframes drawer-fade-in {
   from {
     opacity: 0;

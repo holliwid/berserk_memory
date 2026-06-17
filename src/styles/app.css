@@ -235,24 +235,6 @@ body {
     display: block;
   }
 
-  .card-slot--tappable .card-image-layer,
-  .card-slot--revealed .card-image-layer {
-    aspect-ratio: 5 / 7;
-    width: 100%;
-    max-height: min(calc(100vh - 280px), 620px);
-    height: auto;
-  }
-
-  .card-slot--tappable .card-stats-cover {
-    display: block;
-  }
-
-  .card-slot--tappable .card-image,
-  .card-slot--revealed .card-image {
-    object-fit: fill;
-    object-position: center;
-  }
-
   .trainer-controls {
     position: static;
     width: 100%;
