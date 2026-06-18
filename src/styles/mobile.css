@@ -94,7 +94,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
     min-height: 0;
@@ -138,22 +138,7 @@
     width: 100%;
   }
 
-  .board-field__content--training .card-slot--tappable .card-image-layer {
-    aspect-ratio: 5 / 3.4;
-    max-height: min(var(--mobile-card-max-h), calc((100vw - 24px) * 3.4 / 5));
-    height: auto;
-    width: 100%;
-  }
-
-  .board-field__content--training .card-slot--tappable .card-stats-cover {
-    display: none;
-  }
-
-  .board-field__content--training .card-slot--tappable .card-image {
-    object-fit: cover;
-    object-position: top center;
-  }
-
+  .board-field__content--training .card-slot--tappable .card-image-layer,
   .board-field__content--training .card-slot--revealed .card-image-layer {
     aspect-ratio: 5 / 7;
     max-height: var(--mobile-card-max-h);
@@ -161,6 +146,11 @@
     height: auto;
   }
 
+  .board-field__content--training .card-slot--tappable .card-stats-cover {
+    display: block;
+  }
+
+  .board-field__content--training .card-slot--tappable .card-image,
   .board-field__content--training .card-slot--revealed .card-image {
     object-fit: fill;
     object-position: center;
